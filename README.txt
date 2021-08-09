@@ -9,4 +9,4 @@ dependencies required :
 # beautifulsoup4 required
 # requests required
 # csv required
-# chrome webdriver required (should in same root as source code)
+# chrome webdriver required (should be in the same root as source code)
