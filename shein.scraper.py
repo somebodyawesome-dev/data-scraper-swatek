@@ -9,8 +9,10 @@ import csv
 import time
 
 
-entryUrl = "https://fr.shein.com/Clothing-c-2035.html?ici=fr_tab01navbar04"
-basesUrl = "https://fr.shein.com/"
+# entryUrl = "https://fr.shein.com/Clothing-c-2035.html?ici=fr_tab01navbar04"
+entryUrl = "https://fr.shein.com/Men-Clothing-c-1969.html?ici=fr_tab04navbar03&scici=navbar_MenHomePage~~tab04navbar03~~3~~real_1969~~~~0&srctype=category&userpath=category%3EV%C3%8ATEMENTS"
+basesUrl = "https://fr.shein.com"
+secondBaseUrl = "https://www.shein.com"
 
 
 def getTotalPageNumber(entry_url, driver):
@@ -55,7 +57,7 @@ def getDataFromRoute(url, driver):
 
 csvHeader = ["nomProduit",  "prix", "tailles",
              "description", "couleurs", "imagesUrl"]
-csvPath = "scraped data/shein data.csv"
+csvPath = "scraped data/shein homme.csv"
 
 
 def writeToCSV(csvPath, csvHeader, data):
@@ -86,10 +88,20 @@ if __name__ == "__main__":
         data = []
         print("scraping data from the fetched routes ")
         i = 1
+        err = 0
         for route in itemsRoute:
-            data += [getDataFromRoute(basesUrl+route, driver)]
-            print("{}/{}-scraping {}".format(i, len(itemsRoute), route))
+            try:
+                data += [getDataFromRoute(basesUrl+route, driver)]
+            except KeyboardInterrupt:
+                break
+            except:
+                try:
+                    data += [getDataFromRoute(secondBaseUrl+route, driver)]
+                except:
+                    err += 1
             i += 1
+            print("[{}/{}][Errors:{}]-scraping {}".format(i,
+                                                          len(itemsRoute), err, route))
         driver.close()
         print("writing data to csv file")
         writeToCSV(csvPath, csvHeader, data)
