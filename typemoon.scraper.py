@@ -36,8 +36,10 @@ def fetchCharacterData(url):
         "div", {"data-source": "age"}).find("div").find_all(text=True, recursive=False)).strip() if mainContainer.find("div", {"data-source": "age"}) else "UKNOWN"
 
     return {"name": characterName,
+            "classes": [],
             "description": "",
             "imageURL": "",
+            "series": ["Fate-Apocrypha"],
             "age": age,
             "species": species,
             "gender": gender,
@@ -49,9 +51,13 @@ def fetchCharacterData(url):
 
 
 if __name__ == "__main__":
-    with open("data.txt", mode="a", encoding='utf-8') as file:
-        json.dump(fetchCharacterData(
-            input("url:")), file)
-        file.write("\n")
+    while(True):
+        with open("data.txt", mode="a", encoding='utf-8') as file:
+            url = input("url:")
+            if(url == "exit"):
+                break
+            json.dump(fetchCharacterData(
+                url), file)
+            file.write("\n")
 
     pass
