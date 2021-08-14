@@ -10,7 +10,8 @@ import time
 
 
 # entryUrl = "https://fr.shein.com/Clothing-c-2035.html?ici=fr_tab01navbar04"
-entryUrl = "https://fr.shein.com/Men-Clothing-c-1969.html?ici=fr_tab04navbar03&scici=navbar_MenHomePage~~tab04navbar03~~3~~real_1969~~~~0&srctype=category&userpath=category%3EV%C3%8ATEMENTS"
+# entryUrl = "https://fr.shein.com/Men-Clothing-c-1969.html?ici=fr_tab04navbar03&scici=navbar_MenHomePage~~tab04navbar03~~3~~real_1969~~~~0&srctype=category&userpath=category%3EV%C3%8ATEMENTS"
+entryUrl = "https://fr.shein.com/Clothing-c-2035.html?ici=fr_tab01navbar04&scici=navbar_WomenHomePage~~tab01navbar04~~4~~webLink~~~~0&srctype=category&userpath=category%3EV%C3%8ATEMENTS&tag_ids=70007004"
 basesUrl = "https://fr.shein.com"
 secondBaseUrl = "https://www.shein.com"
 
@@ -57,7 +58,7 @@ def getDataFromRoute(url, driver):
 
 csvHeader = ["nomProduit",  "prix", "tailles",
              "description", "couleurs", "imagesUrl"]
-csvPath = "scraped data/shein homme.csv"
+csvPath = "scraped data/shein femme v2.csv"
 
 
 def writeToCSV(csvPath, csvHeader, data):
@@ -75,20 +76,23 @@ def writeToCSV(csvPath, csvHeader, data):
 
 if __name__ == "__main__":
     driver = None
+    itemsRoute = []
+    i = 1
+    err = 0
+    data = []
     try:
         print("Searching for how many pages to scratch routs from...")
         driver = webdriver.Chrome()
         pagesNumber = getTotalPageNumber(entryUrl, driver)
         print("there is {} pages".format(pagesNumber))
-        itemsRoute = []
+
         print("scratching the routes")
         for i in range(1, pagesNumber+1):
             itemsRoute += getItemsFromPage(entryUrl+"&page="+str(i))
             print("scratched the page number {}".format(i))
         data = []
         print("scraping data from the fetched routes ")
-        i = 1
-        err = 0
+
         for route in itemsRoute:
             try:
                 data += [getDataFromRoute(basesUrl+route, driver)]
