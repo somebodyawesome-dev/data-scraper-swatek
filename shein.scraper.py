@@ -11,7 +11,8 @@ import time
 
 # entryUrl = "https://fr.shein.com/Clothing-c-2035.html?ici=fr_tab01navbar04"
 # entryUrl = "https://fr.shein.com/Men-Clothing-c-1969.html?ici=fr_tab04navbar03&scici=navbar_MenHomePage~~tab04navbar03~~3~~real_1969~~~~0&srctype=category&userpath=category%3EV%C3%8ATEMENTS"
-entryUrl = "https://fr.shein.com/Clothing-c-2035.html?ici=fr_tab01navbar04&scici=navbar_WomenHomePage~~tab01navbar04~~4~~webLink~~~~0&srctype=category&userpath=category%3EV%C3%8ATEMENTS&tag_ids=70007004"
+# entryUrl = "https://fr.shein.com/Clothing-c-2035.html?ici=fr_tab01navbar04&scici=navbar_WomenHomePage~~tab01navbar04~~4~~webLink~~~~0&srctype=category&userpath=category%3EV%C3%8ATEMENTS&tag_ids=70007004"
+entryUrl = "https://fr.shein.com/new/Men-new-in-sc-00200410.html?ici=fr_tab04navbar01&scici=navbar_MenHomePage~~tab04navbar01~~1~~itemPicking_00200410~~~~0&srctype=category&userpath=category%3ENOUVEAUT%C3%89S"
 basesUrl = "https://fr.shein.com"
 secondBaseUrl = "https://www.shein.com"
 
@@ -58,7 +59,7 @@ def getDataFromRoute(url, driver):
 
 csvHeader = ["nomProduit",  "prix", "tailles",
              "description", "couleurs", "imagesUrl"]
-csvPath = "scraped data/shein femme v2.csv"
+csvPath = "scraped data/shein homme v2.csv"
 
 
 def writeToCSV(csvPath, csvHeader, data):
